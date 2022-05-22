@@ -6,7 +6,7 @@
 #    By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/30 02:45:29 by tkomeno           #+#    #+#              #
-#    Updated: 2022/05/06 05:07:41 by tkomeno          ###   ########.fr        #
+#    Updated: 2022/05/06 12:47:20 by tkomeno          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,11 @@ OBJS = $(SRCS:.c=.o)
 
 DEFAULT_BS=256
 
-ifdef BS
-	CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=$(BS)
-else
-	CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=$(DEFAULT_BS)
-endif
+# ifdef BS
+# 	CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=$(BS)
+# else
+# 	CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=$(DEFAULT_BS)
+# endif
 
 all: $(NAME)
 
@@ -46,7 +46,12 @@ compile: all
 	@$(CC) -g $(EXE).c $(NAME) -o $(EXE)
 
 run: compile
+	@echo ""
+	@echo "🚀 OUTPUT:"
+	@echo "────────────────"
 	@./$(EXE)
+	@echo ""
+	@echo "────────────────"
 
 db: compile
 	clear

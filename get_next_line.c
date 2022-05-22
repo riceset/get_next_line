@@ -6,7 +6,7 @@
 /*   By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 06:31:23 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/05/06 05:11:47 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/05/22 08:35:54 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,5 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*pile;
-	char		*line;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-
-	return (line);
+	return (NULL);
 }
