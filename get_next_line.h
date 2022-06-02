@@ -6,7 +6,7 @@
 /*   By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 07:23:11 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/05/06 12:42:37 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/06/02 00:26:48 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef int t_flag;
+
 typedef enum e_bool
 {
 	false,
@@ -32,12 +34,5 @@ typedef enum e_bool
 # endif
 
 char	*get_next_line(int fd);
-
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlcat(char *dst, const char *src, size_t f_dst_s);
-size_t	ft_strlcpy(char *dst, const char *src, size_t cpysize);
-size_t	ft_strlen(const char *s);
-char	*ft_strdup(const char *s1);
-char	*ft_strchr(const char *s, int c);
 
 #endif
