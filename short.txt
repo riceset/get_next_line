@@ -1,9 +1,6 @@
-the
-quick
+the quick
 brown
-fox
-jumped
+fox jumped
 over
-the
-lazy
+the lazy
 dog

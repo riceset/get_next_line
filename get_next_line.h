@@ -6,7 +6,7 @@
 /*   By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 07:23:11 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/06/02 00:26:48 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/06/02 01:01:05 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef enum e_bool
 	true
 }		t_bool;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+// # ifndef BUFFER_SIZE
+// #  define BUFFER_SIZE 16
 // #  define BUFFER_SIZE 256
-# endif
+// # endif
 
 char	*get_next_line(int fd);
 
