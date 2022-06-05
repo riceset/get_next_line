@@ -6,58 +6,86 @@
 /*   By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 06:31:23 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/06/05 05:43:49 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/06/05 06:42:17 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 void	*ft_bzero(void *b, size_t len);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(char *s1);
+char	*ft_strjoin(char *s1, char *s2);
+int	ft_strcmp(char *s1, char *s2);
+char *free_all(char *line, char *buffer, char *remainder);
 
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 21
 
 char	*get_next_line(int fd)
 {
-	int i;
-	char *line;
-	char *buffer;
-	char *remainder;
-	ssize_t read_return;
+	int			i;
+	char		*line;
+	char		*buffer;
+	static char	*remainder = NULL;
+	ssize_t read_return ;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (NULL);
 
-	line = ft_strdup("");
-	if (line == NULL)
-		return (NULL);
-
+	if (remainder != NULL)
+	{
+		line = remainder;
+		remainder = NULL;
+	}
+	else
+	{
+		line = ft_strdup("");
+		if (line == NULL)
+			return (NULL);
+	}
+	i = 0;
 	while (true)
 	{
 		ft_bzero(buffer, BUFFER_SIZE + 1);
-
 		read_return = read(fd, buffer, BUFFER_SIZE);
 
-		if (read_return == 0 || read_return == -1)
+		if (read_return == -1)
 			break ;
 
+		if (read_return == 0 && ft_strcmp(line, "") == 0)
+			break ;
+
+		else if (read_return == 0 && line[i] == '\0')
+			return (line);
+
 		line = ft_strjoin(line, buffer);
-
 		if (line == NULL)
-			return (NULL);
+			return (free_all(line, buffer, remainder));
 
-		i = 0;
 		while (line[i] != '\0')
 		{
 			if (line[i] == '\n')
 			{
+				if (line[i + 1] != '\0')
+				{
+					remainder = ft_strdup(&line[i + 1]);
+					if (remainder == NULL)
+						return (free_all(line, buffer, remainder));
+				}
+				line[i + 1] = '\0';
 				return (line);
 			}
 			i++;
 		}
 	}
+	return (NULL);
+}
+
+char *free_all(char *line, char *buffer, char *remainder)
+{
+	free(line);
+	free(buffer);
+	free(remainder);
 
 	return (NULL);
 }
@@ -74,7 +102,7 @@ size_t	ft_strlen(const char *s)
 
 void	*ft_bzero(void *b, size_t len)
 {
-	size_t			i;
+	size_t	i;
 
 	i = 0;
 	while (i < len)
@@ -99,7 +127,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t cpysize)
 	return (ft_strlen(src));
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	char	*dup;
 	size_t	size;
@@ -134,7 +162,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t f_dst_s)
 	return (src_len + f_dst_s);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*j;
 	size_t	js;
@@ -147,8 +175,24 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		{
 			ft_strlcpy(j, s1, ft_strlen(s1) + 1);
 			ft_strlcat(j, s2, js);
+			free(s1);
 			return (j);
 		}
 	}
 	return (NULL);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		if (s1[i] == '\0')
+			return (0);
+		i++;
+	}
 }
