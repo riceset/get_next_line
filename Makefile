@@ -6,59 +6,47 @@
 #    By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/30 02:45:29 by tkomeno           #+#    #+#              #
-#    Updated: 2022/05/06 12:47:20 by tkomeno          ###   ########.fr        #
+#    Updated: 2022/09/17 13:33:21 by tkomeno          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = get_next_line.a
-EXE = main
+NAME = get_next_line
 
-CC = gcc
-DB = lldb
-RM = rm -rf
-AR = ar -rc
+CFLAGS = -Wall -Wextra -Werror -I includes
 
-SRCS = get_next_line.c get_next_line_utils.c
+FILES = main.c \
+		get_next_line.c \
+		get_next_line_utils.c
+
+BFILES = main.c \
+		get_next_line_bonus.c \
+		get_next_line_utils_bonus.c
+
+
+SRCS = $(addprefix srcs/,$(FILES))
+BSRCS = $(addprefix srcs/bonus/,$(BFILES))
+
 OBJS = $(SRCS:.c=.o)
+BOBJS = $(BSRCS:.c=.o)
 
-DEFAULT_BS=256
-
-# ifdef BS
-# 	CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=$(BS)
-# else
-# 	CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=$(DEFAULT_BS)
-# endif
+ifdef WITH_BONUS
+	OBJS = $(BOBJS)
+endif
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+	$(CC) $(OBJS) -o $(NAME)
+
+bonus:
+	@make WITH_BONUS=TRUE
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(BOBJS)
 
 fclean: clean
-	$(RM) $(NAME) $(EXE) $(EXE).dSYM
+	$(RM) $(NAME)
 
 re: fclean all
 
-compile: all
-	@$(CC) -g $(EXE).c $(NAME) -o $(EXE)
-
-run: compile
-	@echo ""
-	@echo "🚀 OUTPUT:"
-	@echo "────────────────"
-	@./$(EXE)
-	@echo ""
-	@echo "────────────────"
-
-db: compile
-	clear
-	$(DB) $(EXE)
-
-norm:
-	@norminette -R CheckForbiddenSourceHeader $(SRCS)
-	@norminette -R CheckDefine *.h
-
-.PHONY: all clean fclean re compile run db norm
+.PHONY: all clean fclean re
