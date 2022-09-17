@@ -6,7 +6,7 @@
 #    By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/30 02:45:29 by tkomeno           #+#    #+#              #
-#    Updated: 2022/09/17 13:35:43 by tkomeno          ###   ########.fr        #
+#    Updated: 2022/09/17 16:33:56 by tkomeno          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ BFILES = main.c \
 		get_next_line_utils_bonus.c
 
 
-SRCS = $(addprefix srcs/,$(FILES))
-BSRCS = $(addprefix srcs/bonus/,$(BFILES))
+SRCS = $(addprefix sources/,$(FILES))
+BSRCS = $(addprefix sources/bonus/,$(BFILES))
 
 OBJS = $(SRCS:.c=.o)
 BOBJS = $(BSRCS:.c=.o)
