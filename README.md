@@ -29,6 +29,12 @@ Compile the executable file with:
 $ make
 ```
 
+Or use the following command to compile it with the bonus files:
+
+```zsh
+$ make bonus
+```
+
 ## Usage
 This function is not a stand-alone program, its files must be included and compiled within another project.
 
@@ -58,20 +64,20 @@ int	main(int argc, char **argv)
 ```
 Compilation:
 ```bash
-gcc main.c get_next_line.c get_next_line_utils.c
+$ gcc main.c get_next_line.c get_next_line_utils.c
 ```
 ``BUFFER_SIZE`` can be specified at compilation to override the default ``BUFFER_SIZE``:
 ```bash
-gcc -D BUFFER_SIZE=42 main.c get_next_line.c get_next_line_utils.c
+$ gcc -D BUFFER_SIZE=42 main.c get_next_line.c get_next_line_utils.c
 ```
 Execution:
 ```bash
-./a.out [file]
+$ ./a.out [file]
 ```
 Output should show the entire contents of the given file.
 
 Execution with stdin:
 ```bash
-./a.out /dev/tty
+$ ./a.out /dev/tty
 ```
 Program will wait for input, then once the enter key is pressed, print out the input as well as get_next_line's output. The process can be killed with ``ctrl-c``.
